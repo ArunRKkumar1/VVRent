@@ -1,0 +1,270 @@
+[
+  {
+    "name": "Pulsar 150",
+    "owner": "John Doe",
+    "owner_number": "+1234567890",
+    "available": true,
+    "prices": {
+      "hour": 5,
+      "day": 30,
+      "week": 150
+    },
+    "RC": "XYAB1234",
+    "bike_insurance": true,
+    "last_maintenance": "2024-04-01",
+    "img":"https://picsum.photos/200/300"
+  },
+  {
+    "name": "Royal Enfield Classic 350",
+    "owner": "Jane Smith",
+    "owner_number": "+1987654321",
+    "available": false,
+    "prices": {
+      "hour": 8,
+      "day": 50,
+      "week": 250
+    },
+    "RC": "ZXCD5678",
+    "bike_insurance": false,
+    "last_maintenance": "2024-03-15",
+    "img":"https://fastly.picsum.photos/id/805/200/300.jpg?hmac=fF1qvNutYd9afa-FIuDfrsh7edNFRq6IXWnMbSuzSOs"
+  },
+  {
+    "name": "Honda CB Shine",
+    "owner": "Michael Johnson",
+    "owner_number": "+1122334455",
+    "available": true,
+    "prices": {
+      "hour": 4,
+      "day": 25,
+      "week": 120
+    },
+    "RC": "MNOP9012",
+    "bike_insurance": true,
+    "last_maintenance": "2024-04-10"
+  },
+  {
+    "name": "Suzuki Gixxer SF",
+    "owner": "Emily Brown",
+    "owner_number": "+1555666777",
+    "available": true,
+    "prices": {
+      "hour": 6,
+      "day": 35,
+      "week": 180
+    },
+    "RC": "QRST3456",
+    "bike_insurance": true,
+    "last_maintenance": "2024-03-20"
+  },
+  {
+    "name": "TVS Apache RTR 160",
+    "owner": "David Wilson",
+    "owner_number": "+1999888777",
+    "available": false,
+    "prices": {
+      "hour": 7,
+      "day": 40,
+      "week": 200
+    },
+    "RC": "UVWX7890",
+    "bike_insurance": false,
+    "last_maintenance": "2024-04-05"
+  },
+  {
+    "name": "Yamaha FZ-S V3",
+    "owner": "Maria Garcia",
+    "owner_number": "+1777888999",
+    "available": true,
+    "prices": {
+      "hour": 5,
+      "day": 30,
+      "week": 150
+    },
+    "RC": "FGHI2345",
+    "bike_insurance": true,
+    "last_maintenance": "2024-04-03"
+  },
+  {
+    "name": "Bajaj Dominar 400",
+    "owner": "Chris Martin",
+    "owner_number": "+1444333222",
+    "available": true,
+    "prices": {
+      "hour": 8,
+      "day": 50,
+      "week": 250
+    },
+    "RC": "JKLM6789",
+    "bike_insurance": true,
+    "last_maintenance": "2024-03-25"
+  },
+  {
+    "name": "KTM Duke 200",
+    "owner": "Ava White",
+    "owner_number": "+1888999000",
+    "available": false,
+    "prices": {
+      "hour": 6,
+      "day": 35,
+      "week": 180
+    },
+    "RC": "OPQR1234",
+    "bike_insurance": false,
+    "last_maintenance": "2024-04-12"
+  },
+  {
+    "name": "Hero Xtreme 160R",
+    "owner": "Ethan Clark",
+    "owner_number": "+1999777666",
+    "available": true,
+    "prices": {
+      "hour": 4,
+      "day": 25,
+      "week": 120
+    },
+    "RC": "STUV5678",
+    "bike_insurance": true,
+    "last_maintenance": "2024-04-08"
+  },
+  {
+    "name": "Kawasaki Ninja 300",
+    "owner": "Olivia Martinez",
+    "owner_number": "+1666777888",
+    "available": true,
+    "prices": {
+      "hour": 10,
+      "day": 60,
+      "week": 300
+    },
+    "RC": "WXYZ9012",
+    "bike_insurance": true,
+    "last_maintenance": "2024-03-30"
+  },
+  {
+    "name": "Bajaj Avenger Street 160",
+    "owner": "Lucas Lee",
+    "owner_number": "+1888444555",
+    "available": false,
+    "prices": {
+      "hour": 7,
+      "day": 40,
+      "week": 200
+    },
+    "RC": "ABCD3456",
+    "bike_insurance": false,
+    "last_maintenance": "2024-04-18"
+  },
+  {
+    "name": "Harley-Davidson Iron 883",
+    "owner": "Sophia Taylor",
+    "owner_number": "+1222333444",
+    "available": true,
+    "prices": {
+      "hour": 12,
+      "day": 70,
+      "week": 350
+    },
+    "RC": "EFGH5678",
+    "bike_insurance": true,
+    "last_maintenance": "2024-04-22"
+  },
+  {
+    "name": "Suzuki Intruder 150",
+    "owner": "Daniel Brown",
+    "owner_number": "+1555444666",
+    "available": true,
+    "prices": {
+      "hour": 7,
+      "day": 40,
+      "week": 200
+    },
+    "RC": "IJKL9012",
+    "bike_insurance": true,
+    "last_maintenance": "2024-03-28"
+  },
+  {
+    "name": "Ducati Scrambler Icon",
+    "owner": "Isabella Johnson",
+    "owner_number": "+1999222111",
+    "available": false,
+    "prices": {
+      "hour": 15,
+      "day": 80,
+      "week": 400
+    },
+    "RC": "MNOP2345",
+    "bike_insurance": false,
+    "last_maintenance": "2024-04-15"
+  },
+  {
+    "name": "Honda Hornet 2.0",
+    "owner": "Mason Martinez",
+    "owner_number": "+1444555666",
+    "available": true,
+    "prices": {
+      "hour": 6,
+      "day": 35,
+      "week": 180
+    },
+    "RC": "QRST6789",
+    "bike_insurance": true,
+    "last_maintenance": "2024-04-20"
+  },
+  {
+    "name": "KTM RC 390",
+    "owner": "Emma Wilson",
+    "owner_number": "+1888333222",
+    "available": true,
+    "prices": {
+      "hour": 10,
+      "day": 60,
+      "week": 300
+    },
+    "RC": "UVWX1234",
+    "bike_insurance": true,
+    "last_maintenance": "2024-03-23"
+  },
+  {
+    "name": "Yamaha MT-15",
+    "owner": "Logan Anderson",
+    "owner_number": "+1666555444",
+    "available": false,
+    "prices": {
+      "hour": 5,
+      "day": 30,
+      "week": 150
+    },
+    "RC": "YZAB5678",
+    "bike_insurance": false,
+    "last_maintenance": "2024-04-25"
+  },
+  {
+    "name": "Hero Splendor Plus",
+    "owner": "Chloe Harris",
+    "owner_number": "+1777333222",
+    "available": true,
+    "prices": {
+      "hour": 3,
+      "day": 20,
+      "week": 100
+    },
+    "RC": "CDEF9012",
+    "bike_insurance": true,
+    "last_maintenance": "2024-04-17"
+  },
+  {
+    "name": "BMW G 310 R",
+    "owner": "Noah Walker",
+    "owner_number": "+1222444555",
+    "available": true,
+    "prices": {
+      "hour": 10,
+      "day": 60,
+      "week": 300
+    },
+    "RC": "GHJK3456",
+    "bike_insurance": true,
+    "last_maintenance": "2024-04-13"
+  }
+]
