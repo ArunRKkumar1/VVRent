@@ -17,14 +17,14 @@ export default function AllBikes() {
        <div className='flex flex-col gap-2'>
 
     {Object.entries(details).map(([key, value]) => (
-      <div  className='grid grid-cols-2'>
+      <div key={key} className='grid grid-cols-2'>
         <div className='flex justify-between'> <span>{key} </span><span>:&nbsp; &nbsp;</span></div>       
         <div>{value}</div>
     </div>
     ))}
     {/* data.RC will be replaced with Data.id
      bikeDetails?id=$value will redirect to bikedetail component with the bike id which will further use to fetch all the details of the bike */}
-    <Link to={`bikeDetails?id=${data.RC}`} >View Details</Link>
+    <Link className='text-red-500 underline' to={`bikeDetails?id=${data.RC}`} >View Details</Link>
     
     </div>
     <div className='flex justify-center'>
@@ -33,9 +33,11 @@ export default function AllBikes() {
     </div>
   </>
   }
-  const handleSearch = ()=>{
+  const handleSearch = (data)=>{
+    setSearchInput(data.target.value);
+    const filterValue = data.target.value;
     const allBike = bikesDetails.filter((bike)=>{
-      return bike.name.toLowerCase().includes(searchInput.toLowerCase()) || bike.RC.toLowerCase().includes(searchInput.toLowerCase()) || bike.owner.toLowerCase().includes(searchInput.toLowerCase())
+      return bike.name.toLowerCase().includes(filterValue.toLowerCase()) || bike.RC.toLowerCase().includes(filterValue.toLowerCase()) || bike.owner.toLowerCase().includes(filterValue.toLowerCase())
     })
     console.log(allBike);
     setBikes(allBike);
@@ -51,7 +53,7 @@ export default function AllBikes() {
       {/* search to shortlist bikes from bike name, rc or owner name */}
       <div className='flex items-center gap-6 justify-end mt-12  '>
   
-        <Input inputClass='bg-gray-200 border border-black' label='Filter' className='input1 mr-4 md:mr-0 md:w-1/4'  placeholder='Bike name, RC number or Owner name' onInput={e=>setSearchInput(e.target.value)} onChange={handleSearch}
+        <Input inputClass='bg-gray-200 border border-black' label='Filter' className='input1 mr-4 md:mr-0 md:w-1/4'  placeholder='Bike name, RC number or Owner name'  onChange={handleSearch}
 />
         {/* <button className='btn1 ' onClick={handleSearch} >Search</button> */}
 
@@ -65,11 +67,11 @@ export default function AllBikes() {
           <div className=" text-center  dark:bg-[#222222] text-green-500 p-1">Status</div>
 
         </div>
-        <ul className=' list-none mt-4 w-full flex flex-col gap-1 '>
+        <ul className=' list-none mt-4 w-full flex flex-col gap-1 h-[50vh] overflow-y-scroll'>
           {bikes?.map((bike, id)=>{
             return(
               <span key={id} className={id%2===0?'bg-gray-300 dark:bg-[#2b2b2b]' : 'bg-gray-400 dark:bg-[#111111]'}>
-                <ListAccordian data={bike}  heading={[bike.name,bike.owner,bike.RC,bike.available?'Available':'Alloted']} ListAccordianDetail={ListAccordianDetail} />
+                <ListAccordian  data={bike}  heading={[bike.name,bike.owner,bike.RC,bike.available?'Available':'Alloted']} ListAccordianDetail={ListAccordianDetail} />
 
               </span>
             )

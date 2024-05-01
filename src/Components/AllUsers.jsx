@@ -2,6 +2,7 @@ import Input from './subComponent/Input'
 import React, { useEffect, useState } from 'react'
 import allUser from '../Data/user.json'
 import ListAccordian from './subComponent/ListAccordian'
+import { Link } from 'react-router-dom';
 export default function AllBikes() {
   //All data fetched from Server
   const [usersDatas,setUsersDatas] = useState([]);
@@ -9,6 +10,8 @@ export default function AllBikes() {
   const [users,setUsers] = useState([]);
   const[searchInput,setSearchInput] = useState('');
 
+
+  //Custom function to show all users details for List Accordian
   const ListAccordianDetail =({data})=>{
     
     const details ={'User Name':data.name ,'Phone number':data.contact,'Addhaar':data.aadhaar,'Current Address':data.current_address,'License':data.license};
@@ -18,11 +21,12 @@ export default function AllBikes() {
        <div className='flex flex-col gap-2'>
 
     {Object.entries(details).map(([key, value]) => (
-      <div  className='grid grid-cols-2'>
+      <div key={key} className='grid grid-cols-2'>
         <div className='flex justify-between'> <span>{key} </span><span>:&nbsp; &nbsp;</span></div>       
         <div>{value}</div>
     </div>
     ))}
+     <Link className='text-red-500 underline' to={`userDetails?id=${data.name}`} >View Details</Link>
     </div>
     {/* this need to be fixed */}
     <div className='flex justify-center'>
@@ -31,12 +35,15 @@ export default function AllBikes() {
     </div>
   </>
   }
-  const handleSearch = ()=>{
-    const allBike = bikesDetails.filter((bike)=>{
-      return bike.name.toLowerCase().includes(searchInput.toLowerCase()) || bike.RC.toLowerCase().includes(searchInput.toLowerCase()) || bike.owner.toLowerCase().includes(searchInput.toLowerCase())
+  // function to filter data from all usersDetails
+  const handleSearch = (data)=>{
+    setSearchInput(data.target.value);
+    const filterValue = data.target.value;
+    const allUsers =  usersDatas.filter((user)=>{
+      return  user.name.toLowerCase().includes(filterValue.toLowerCase()) || user.email.toLowerCase().includes(filterValue.toLowerCase()) || user.contact.startsWith(filterValue.toLowerCase())
     })
-    console.log(allBike);
-    setBikes(allBike);
+    console.log(allUsers);
+     setUsers(allUsers);
   }
 
   // this function will be replaced when backend is developed and 
@@ -48,11 +55,11 @@ export default function AllBikes() {
 
   return (
     <div className='container mt-4 m-auto pt-4 w-full min-h-full md:w-3/4 '>
-      <h1 className='heading  text-center  dark:text-white'>All Bikes</h1>
+      <h1 className='heading  text-center  dark:text-white'>All Registered User</h1>
       {/* search to shortlist bikes from bike name, rc or owner name */}
       <div className='flex items-center gap-6 justify-end mt-12  '>
   
-        <Input inputClass='bg-gray-200 border border-black' label='Filter' className='input1 mr-4 md:mr-0 md:w-1/4'  placeholder='Bike name, RC number or Owner name' onInput={e=>setSearchInput(e.target.value)} onChange={handleSearch}
+        <Input inputClass='bg-gray-200 border border-black' label='Filter' className='input1 mr-4 md:mr-0 md:w-1/4'  placeholder='Bike name, RC number or Owner name'  onChange={handleSearch}
 />
         {/* <button className='btn1 ' onClick={handleSearch} >Search</button> */}
 
@@ -64,7 +71,7 @@ export default function AllBikes() {
           <div className="text-center  dark:bg-[#222222] p-1">Contact</div>
           <div className=" text-center  dark:bg-[#222222] p-1 ">Email</div>
         </div>
-        <ul className=' list-none mt-4 w-full flex flex-col gap-1 '>
+        <ul className=' list-none mt-4 w-full flex flex-col gap-1 h-[50vh] overflow-y-scroll'>
           {users?.map((user, id)=>{
             return(
               <span key={id} className={id%2===0?'bg-gray-300 dark:bg-[#2b2b2b]' : 'bg-gray-400 dark:bg-[#111111]'}>
