@@ -48,7 +48,7 @@ export default function AllBikes() {
   },[])
 
   return (
-    <div className='container m-auto pt-4 w-full min-h-full md:w-3/4 '>
+    <div className='container m-auto pt-4 w-full min-h-full md:w-3/4 custom-Scroll'>
       <h1 className='heading  text-center  dark:text-white'>All Bikes</h1>
       {/* search to shortlist bikes from bike name, rc or owner name */}
       <div className='flex items-center gap-6 justify-end mt-12  '>
