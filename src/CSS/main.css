@@ -319,4 +319,21 @@
 }
 .search-input .search-result:hover {
   background-color: #efefef;
+}
+
+.custom-Scroll {
+  /* scroll bar */
+}
+@media screen and (min-width: 700px) {
+  .custom-Scroll ::-webkit-scrollbar {
+    width: 0.8rem;
+  }
+  .custom-Scroll ::-webkit-scrollbar-track {
+    border-radius: 0.6rem;
+    background: rgb(186, 186, 186);
+  }
+  .custom-Scroll ::-webkit-scrollbar-thumb {
+    background: #4e4e4e;
+    border-radius: 0.6rem;
+  }
 }/*# sourceMappingURL=main.css.map */

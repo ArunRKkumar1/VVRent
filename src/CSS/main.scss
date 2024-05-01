@@ -4,6 +4,7 @@
     box-shadow: 0 0 0.5rem 1px black
 }
 
+
 $radius : .3rem;
 .heading{
     font-family: "Poppins", sans-serif;
@@ -217,4 +218,24 @@ $radius : .3rem;
         background-color: #efefef;
     }
 
+}
+.custom-Scroll{
+    /* scroll bar */
+    @media screen and (min-width:700px) {
+        
+   
+    ::-webkit-scrollbar {
+            width: .8rem; 
+        }
+    
+        ::-webkit-scrollbar-track {
+            border-radius:.6rem;
+            background: rgb(186, 186, 186);
+        }
+    
+        ::-webkit-scrollbar-thumb {
+        background: #4e4e4e;
+        border-radius: .6rem;
+        }
+     }
 }
