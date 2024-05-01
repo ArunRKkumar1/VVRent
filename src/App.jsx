@@ -6,6 +6,7 @@ import EditBike from './Components/EditBike'
 import Navbar from './Components/Navbar'
 import SideMenu from './Components/SideMenu'
 import Booking from './Components/Booking'
+import UserDetails from './Components/UserDetails'
 import AllUsers from './Components/AllUsers'
 import CreateUser from './Components/CreateUser';
 import { useState } from 'react';
@@ -51,6 +52,9 @@ function App() {
           } />
           <Route exact path="/manage/user/allUser" element={
             <AllUsers/>
+          } />
+          <Route exact path="/manage/user/allUser/userDetails" element={
+            <UserDetails/>
           } />
 
 

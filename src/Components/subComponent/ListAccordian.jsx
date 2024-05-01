@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 // ListAccordianDetail is a subcomponent for ListAccordian which paas from parent to child to show details after onClick
 // ListAccordianDetail takes data as parameter and show details of data it used is Used on [AllBikes] 
 
-export default function ListAccordian({column,data,heading,ListAccordianDetail}){
+export default function ListAccordian({data,heading,ListAccordianDetail}){
 
     //accordianOpen is used to toggle the show and hide details of Accrodian 
     const [accordionOpen, setAccordionOpen] = useState(false);
@@ -22,7 +22,7 @@ export default function ListAccordian({column,data,heading,ListAccordianDetail})
         {/* printing all value from heading array */}
           {heading?.map((head,id)=>{
             return(
-              <div key={id} className="text-center  ">{head}</div>
+              <div key={id} className={`text-center truncate`}>{head}</div>
             )
           })}
         
