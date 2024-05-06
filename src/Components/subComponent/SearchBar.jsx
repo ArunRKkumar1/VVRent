@@ -12,8 +12,8 @@ export const SearchBar = ({picked, setPick ,fetch }) => {
   },[picked])
 
   const handleChange = async (value) => {
-    setInput(value);
-    fetch(value)
+    setInput(value.target.value);
+    fetch(value.target.value)
   };
 
   // return an input element with a search icon provide filter functionality on change 
@@ -23,7 +23,7 @@ export const SearchBar = ({picked, setPick ,fetch }) => {
       <input 
         placeholder="Type to search..."
         value={input}
-        onChange={(e) => handleChange(e.target.value)}
+        onChange={(e) => handleChange(e)}
         onClick={()=>{
         setPick('');
       }}

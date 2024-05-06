@@ -1,18 +1,49 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import uploadImg from '../images/uploadimg.png'
 import Input from './subComponent/Input'
-export default function EditBike() {
+import UploadImage from './subComponent/UploadImage'
+import { useNavigate, useParams } from 'react-router-dom';
+import Loader from './subComponent/Loader';
+import Modals from './subComponent/Modals';
 
+export default function EditBike() {
+    const [bikeId, setBikeId] = useState(useParams().id);
+    const [loader,setLoader] = useState(true);
+    const [modalConfirm,setModalConfirm] = useState(false);
+    const navigate = useNavigate();
+    const submitInput = useRef();
+    useEffect(() => {
+        if (!bikeId  || bikeId === 'null')
+            navigate('/manage/bike/editBike/')
+    }, [bikeId])
+
+    //this code is just for showing loader for 5 sec need to be removed after backend
+    useEffect(() => {
+        if(bikeId)
+        {
+            setTimeout(() => {
+                setLoader(false)
+            }, 5000);
+        }
+    }, [bikeId])
+
+    const execute =()=>{
+        submitInput.current.click();
+    }
     return (
         <>
-            <div className='container mt-4 m-auto pt-4  w-full md:w-3/4 '>
-                <h1 className='heading  text-center  dark:text-white'>Edit Bike</h1>
+         {loader && <Loader/>}
+         {modalConfirm && <Modals message={'Are you sure you want to Edit the bike details'} execute={execute} show={setModalConfirm}/>}
+            <div className={`${loader?'hidden':''} container mt-4 m-auto pt-4  w-full md:w-3/4 `}>
+              
+                    <h1 className='heading  text-center  dark:text-white'>Edit Bike</h1>
                 <form action="">
                     <div className="w-full  flex flex-col p-3 gap-6   md:flex-row">
                         <div className='col1  flex flex-col items-center gap-5 justify-between md:w-1/2'>
-                            <div className="upload-image w-1/2">
-                                <img src={uploadImg} alt="uplad image" />
-                                Change Image
+                            <div className=" w-1/2 ">
+                                {/* <img src={uploadImg} alt="uplad image" />
+                            Upload Image */}
+                                <UploadImage className={'rounded-full w-[13rem]'} />
                             </div>
                             <div className="input-container bg-[#3B4179] dark:bg-[#222222]">
                                 <h1 className=''>Prices</h1>
@@ -58,10 +89,11 @@ export default function EditBike() {
                         </div>
                     </div>
                     <div className='flex p-2'>
-                        <input className='mx-auto btn1' type="submit" />
-
+                        <input className='hidden' type="submit"  ref={submitInput}/>
+                        <button className='mx-auto btn1' type='button' onClick={() => setModalConfirm(true)}>Submit</button>
                     </div>
                 </form>
+              
             </div>
         </>
     )

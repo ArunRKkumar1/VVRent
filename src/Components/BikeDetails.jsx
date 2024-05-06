@@ -8,7 +8,7 @@ export default function BikeDetails() {
    
   return (
     <div className='container m-auto pt-4 w-full md:w-3/4 '>
-      {bikeId}
+      
     </div>
   )
 }
