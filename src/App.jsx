@@ -6,20 +6,26 @@ import EditBike from './Components/EditBike'
 import Navbar from './Components/Navbar'
 import SideMenu from './Components/SideMenu'
 import Booking from './Components/Booking'
+
 import UserDetails from './Components/UserDetails'
 import AllUsers from './Components/AllUsers'
 import CreateUser from './Components/CreateUser';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AllBikes from './Components/AllBikes';
 import SideBar from './Components/Sidebar';
 import BikeDetails from './Components/BikeDetails';
+import EditBikeModal from './Components/EditBikeModal';
+
+
 
 function App() {
   const[darkMode, setDarkMode]= useState(localStorage.getItem('darkMode')==='true');
+  
   return (
     <div className={`${darkMode?'dark':''} min-h-[100vh]  bg-white text-black transition-colors duration-700 dark:bg-black dark:text-white`}>
+  
       <Router>
-        <nav className='fixed top-0 w-full '>
+        <nav className='fixed top-0 w-full  z-20'>
 
         <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
         {/* <SideMenu /> */}
@@ -31,6 +37,9 @@ function App() {
 
           <Route exact path="" element={
             <AddBike />
+          } />
+          <Route exact path="/manage/bike/editBike/" element={
+            <EditBikeModal />
           } />
           <Route exact path="/manage/bike/editBike/:id" element={
             <EditBike />
@@ -56,6 +65,8 @@ function App() {
           <Route exact path="/manage/user/allUser/userDetails" element={
             <UserDetails/>
           } />
+        
+         
 
 
           </Routes>

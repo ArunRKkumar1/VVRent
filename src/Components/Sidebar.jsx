@@ -34,7 +34,7 @@ const routes = [
             icon: <IoMdAdd />,
           },
           {
-            path: "/manage/bike/editBike/null",
+            path: "/manage/bike/editBike/",
             name: "Edit Bike",
             icon: <FaRegEdit />,
           },
