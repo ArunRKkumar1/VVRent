@@ -1,9 +1,11 @@
 import React from 'react'
 
-export default React.forwardRef(({message, ...props}, ref) => {
+export default function({message}) {
     return (
-        <h5 className='text-sm text-red-500' {...props} ref={ref}>
-            {message}
-        </h5>
+        <div className='text-start form-error '>
+        <p className='text-sm font-bold '>
+            {message}*
+        </p>
+        </div>
     )
-})
+}

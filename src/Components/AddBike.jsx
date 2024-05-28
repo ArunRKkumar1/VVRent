@@ -7,7 +7,7 @@ export default function AddBike() {
     const [showToast,setShowToast] = useState(true)
     return (
         <>
-            {showToast && <Toast show={setShowToast} message={'something went wrong'}/>}
+            {showToast && <Toast setShow={setShowToast} message={'something went wrong'}/>}
             <div className='container m-auto pt-4 w-full md:w-3/4 '>
                 <h1 className='heading  text-center  dark:text-white'>Add Bike</h1>
                 <form action="">

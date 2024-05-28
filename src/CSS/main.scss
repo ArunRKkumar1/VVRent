@@ -4,6 +4,18 @@
     box-shadow: 0 0 0.5rem 1px black
 }
 
+/* Hide the spinners in Webkit browsers */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Hide the default appearance for Webkit browsers */
+input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
 
 $radius : .3rem;
 .heading{
@@ -269,4 +281,16 @@ $radius : .3rem;
     right: 1rem;
     z-index: 20;
     
+}
+
+.form-error {
+    p{
+
+        color: #bf1650;
+    }
+    
+    p::before {
+        display: inline;
+        content: "⚠ ";
+    }
 }

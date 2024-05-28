@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react'
 import defaultImg from '../../images/upload.png'
+import imageCompression from 'browser-image-compression';
 
 //setImg is a function to set the image in the parent component
 
@@ -9,10 +10,18 @@ export default function ({ className, setIMG }) {
   const hiddenFileInput = useRef(null);
 
   //handleImageChange is a function to handle the image upload and resize it
-  const handleImageChange = (event) => {
-    
-    // setIMG(event.target.files[0]);
-    const file = event.target.files[0];
+  const handleImageChange = async(event) => {
+    const options = {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 1920,
+      useWebWorker: true
+    }
+
+    const rawFile = event.target.files[0];
+    const compressedFile = imageCompression(rawFile, options);
+    const file = await compressedFile.then(e=>e);
+    console.log(rawFile.size , file.size);
+    setIMG(file);
     const imgname = event.target.files[0].name;
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -48,7 +57,7 @@ export default function ({ className, setIMG }) {
 
   //handleClick is a function to trigger the file input
   const handleClick = (event) => {
-    console.log(hiddenFileInput);
+    // console.log(hiddenFileInput);
     hiddenFileInput.current.click();
   };
   return (
