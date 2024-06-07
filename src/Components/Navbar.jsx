@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export default function Navbar({darkMode,setDarkMode}) {
   const toggleDarkMode = () => {
@@ -17,7 +18,11 @@ export default function Navbar({darkMode,setDarkMode}) {
           </div>
        
         <div>
-          <h1 className=' text-lg md:text-3xl font-semibold '>Login</h1>
+          <h1 className=' text-lg md:text-3xl font-semibold '>
+            <Link to="/login">
+            Login
+            </Link>
+            </h1>
         </div>
 
       </div>

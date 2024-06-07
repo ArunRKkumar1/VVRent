@@ -26,9 +26,9 @@ export default function App({execute,message , show}) {
       }, []);
     const toggleConfirm = () => {
         
-        execute();
-        if(show)
-        show(false);
+      execute();
+      if(show)
+      show(false);
     }
     return ReactDOM.createPortal(
         <div className="modal">
@@ -47,12 +47,12 @@ export default function App({execute,message , show}) {
                 </div>
                 <div className="bg-white shadow-2xl radius1 mx-4 flex flex-col p-3 gap-4 h-full justify-between">
                     <div>
-                        <p className="text-xl  md:text-3xl">
+                        <p className="text-xl  text-center md:text-2xl">
                             {message}
                             </p>
                     </div>
                     <div className="flex justify-center">
-                        <button className="btn1" on onClick={toggleConfirm}>Confirm</button>
+                        <button className="btn1"  onClick={toggleConfirm}>Confirm</button>
                     </div>
                 </div>
             </motion.div >

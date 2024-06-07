@@ -4,7 +4,7 @@ import { FaExclamation } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { set } from 'react-hook-form';
 
-export default function Toast({message,show}) {
+export default function Toast({message,setShow}) {
 
     const [onClose ,setOnClose] = useState(false)
 useEffect(()=>{
@@ -12,7 +12,7 @@ useEffect(()=>{
     setOnClose(true);
   },3000)
   setTimeout(() => {
-    show(false);
+    setShow(false);
   }, 4000);
 },[])
 const animationOpen = {
