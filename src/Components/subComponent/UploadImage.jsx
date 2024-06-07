@@ -20,7 +20,7 @@ export default function ({ className, setIMG }) {
     const rawFile = event.target.files[0];
     const compressedFile = imageCompression(rawFile, options);
     const file = await compressedFile.then(e=>e);
-    console.log(rawFile.size , file.size);
+    
     setIMG(file);
     const imgname = event.target.files[0].name;
     const reader = new FileReader();

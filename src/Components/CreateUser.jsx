@@ -104,6 +104,7 @@ export default function CreateUser() {
         alert("Enter valid Otp");
         return;
       }
+      
     console.log(data, otp, profile);
     
   })
@@ -116,7 +117,6 @@ export default function CreateUser() {
     <div className='container  mt-4 m-auto p-3 pt-4 w-full md:w-2/3 '>
       <h1 className='heading  text-center   dark:text-white'>Create User</h1>
       <form className='w-full radius1 p-4 mt-4 text-white  bg-[#3B4179] dark:bg-[#222222]' onSubmit={handleSubmit(onSubmit)}>
-
         {getPage()}
 
         <div className='flex justify-center gap-5  mt-7'>
