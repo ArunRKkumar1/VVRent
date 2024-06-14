@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useForm } from 'react-hook-form';
-import { POST } from '../features/apiCalls';
+import { POST } from '../utils/apiCalls.js';
 
 export default function DashBoard() {
 
