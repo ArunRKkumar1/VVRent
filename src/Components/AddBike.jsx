@@ -7,7 +7,7 @@ import Loader from './subComponent/Loader'
 import { useForm, Form } from 'react-hook-form'
 import Modal from './subComponent/Modals'
 import ErrorDialog from './subComponent/Error'
-import { POST } from '../features/apiCalls'
+import { POST } from '../utils/apiCalls.js'
 import {useNavigate} from 'react-router-dom'
 export default function AddBike() {
     const [showToast, setShowToast] = useState(false)

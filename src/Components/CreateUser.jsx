@@ -5,6 +5,11 @@ import UploadImage from './subComponent/UploadImage'
 import Error from './subComponent/Error'
 import OtpInput from 'react-otp-input';
 import { useForm } from "react-hook-form"
+import { POST } from '../utils/apiCalls'
+import Toast from './subComponent/Toast'
+import Loader from './subComponent/Loader'
+import { useNavigate } from 'react-router-dom'
+
 
 // form page 1
 function FormOTP({ otp, setOtp }) {
@@ -38,7 +43,7 @@ const FormPage = ({ register, errors, setProfile }) => {
         <div className='md:w-2/3'>
           <Input label='Name' className='input1' {...register("name", { required: { value: true, message: "Enter valid name" } })} />
           {errors.name && <Error message={errors.name.message} />}
-          <Input label='Phone number (+91)' type="number" className='input1' {...register("phone", { required: { value: true, message: "Invalid number" }, minLength: { value: 10, message: "Invalid number" } })} />
+          <Input label='Phone number (+91)' type="number" className='input1' {...register("phone", { required: { value: true, message: "Invalid number" }, minLength: { value: 10, message: "Invalid number" }, maxLength: { value: 10, message: "Invalid number" } })} />
           {errors.phone && <Error message={errors.phone.message} />}
         </div>
         <div className='w-full  md:w-1/3 flex justify-center items-center '>
@@ -52,7 +57,7 @@ const FormPage = ({ register, errors, setProfile }) => {
       <Input className='input1' label='Email' {...register("email", { required: { value: true, message: "Enter valid email " }, pattern: { value: /^[a-zA-Z0-9._%+-]+@(gmail\.com|yahoo\.com)$/, message: 'invalid email only (gmail, yahoo) domain are allowed' } })} />
       {errors.email && <Error message={errors.email.message} />}
 
-      <Input className='input1' label='Aadhaar' type="number" {...register("aadhaar", { required: { value: true, message: "Enter Aadhar Number" }, length: { value: 12, message: "Invalid aadhaar" } })} />
+      <Input className='input1' label='Aadhaar' type="number" {...register("aadhaar", { required: { value: true, message: "Enter Aadhar Number" }, minLength: { value: 12, message: "Invalid aadhaar" }, maxLength: { value: 12, message: "Invalid aadhaar" } })} />
       {errors.aadhaar && <Error message={errors.aadhaar.message} />}
 
       <Input className='input1' label='Current Address' {...register("currentAddress", { required: { value: true, message: "Current Address is required" } })} />
@@ -66,6 +71,7 @@ const FormPage = ({ register, errors, setProfile }) => {
         <div className="">
           <Input type='file' className='input1' inputClass='text-white' label='Upload Aadhaar' {...register('aadhaarDoc', { required: { value: true, message: "Aadhaar document is required" } })} />
           {errors.aadhaarDoc && <Error message={errors.aadhaarDoc.message} />}
+
           <Input type='file' className='input1' inputClass='text-white' label='Upload License'  {...register('licenseDoc', { required: { value: true, message: "License document is required" } })} />
           {errors.licenseDoc && <Error message={errors.licenseDoc.message} />}
         </div>
@@ -78,8 +84,12 @@ const FormPage = ({ register, errors, setProfile }) => {
 export default function CreateUser() {
 
   const [page, setPage] = useState(0);
+  const [showToast , setShowToast] = useState(false);
+  const [toastMessage , setToastMessage] = useState('');
+  const [showLoader , setShowLoader] = useState(false);
   const [otp, setOtp] = useState('');
   const [profile, setProfile] = useState(null);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -98,22 +108,61 @@ export default function CreateUser() {
     }
   }
   // submitting form
-  const onSubmit = handleSubmit((data) => {
-    if(otp.length !== 6)
-      {
-        alert("Enter valid Otp");
-        return;
-      }
+  const onSubmit = handleSubmit(async (data) => {
+    if (otp.length !== 6) {
+      alert("Enter valid Otp");
+      return;
+    }
+    setShowLoader(true)
+    const formData = new FormData();
+    formData.append('otp', otp);
+   
+    formData.append('profile', profile);
+
+    for (const key in data) {
       
-    console.log(data, otp, profile);
+      if (key === 'aadhaarDoc' || key === 'licenseDoc') {
+        // Access the first file directly
+        formData.append(key, data[key][0]);
+      } else {
+        formData.append(key, data[key]);
+      }
+    }
     
+    await POST('/users/register', formData).then((res) => {
+      setToastMessage(res.data.message)
+      setShowToast(true);
+      setTimeout(() => {
+        navigate('/')
+      }, 3000);
+    }).catch((err) => {
+      setToastMessage(err.message)
+      setShowToast(true);
+    })
+    
+    setShowLoader(false)
   })
   //next page if no error
-  const handleNextPage = handleSubmit(() => {
+  const handleNextPage = handleSubmit( async(data) => {
+  
     setOtp("")
-    setPage(1);
+    setShowLoader(true)
+    await POST('/users/sendOtp',{email:data.email}).then((res)=>{
+      console.log(res.data.message);
+      setToastMessage(`Otp is send to ${data.email} and +91 ${data.phone}`);
+      setShowToast(true);
+      setPage(1);
+    }).catch((err)=>{
+      console.log(err);
+      setToastMessage(err.message);
+      setShowToast(true);
+    })
+    setShowLoader(false)
   })
   return (
+    <>
+  {showToast && <Toast setShow={setShowToast} message={toastMessage} />}
+  {showLoader && <Loader />}
     <div className='container  mt-4 m-auto p-3 pt-4 w-full md:w-2/3 '>
       <h1 className='heading  text-center   dark:text-white'>Create User</h1>
       <form className='w-full radius1 p-4 mt-4 text-white  bg-[#3B4179] dark:bg-[#222222]' onSubmit={handleSubmit(onSubmit)}>
@@ -130,5 +179,6 @@ export default function CreateUser() {
         </div>
       </form>
     </div>
+    </>
   )
 }

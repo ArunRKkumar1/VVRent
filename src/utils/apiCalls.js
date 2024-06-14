@@ -6,7 +6,6 @@ const GET =  async (url, body) => {
     try {
         const response = await axios.get(`${BASE_URL}${url}`, {
           data:body,  
-          params,
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${localStorage.getItem('token')}`
