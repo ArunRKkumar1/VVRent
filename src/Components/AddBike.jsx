@@ -89,6 +89,9 @@ export default function AddBike() {
                                 <Input label='Per hour (extra)' className='input1'{...register("perHourExtra", { required: true })} />
                                 {errors.perHourExtra && <ErrorDialog message="required" />}
 
+                                <Input label='Per Day' className='input1'{...register("perDay", { required: true })} />
+                                {errors.perHourExtra && <ErrorDialog message="required" />}
+
                             </div>
                             <div className="input-container bg-[#3B4179] dark:bg-[#222222]">
                                 <h1 >Owner Details</h1>

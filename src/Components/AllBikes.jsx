@@ -1,16 +1,19 @@
 import Input from './subComponent/Input'
 import React, { useEffect, useState } from 'react'
-import bikeData from '../Data/bikes.json'
 import ListAccordian from './subComponent/ListAccordian'
 import { Link, useNavigate } from 'react-router-dom';
+import { GET } from '../utils/apiCalls';
 export default function AllBikes() {
-  const [bikesDetails,setBikesDetails] = useState([]);
+  //all bikes came from backend
+  const [allBikes,setallBikes] = useState([]);
+  //filetered bike
   const [bikes,setBikes] = useState([]);
   const[searchInput,setSearchInput] = useState('');
 
+  //list element
   const ListAccordianDetail =({data})=>{
    // This object will contain a comprehensive list of all the data that needs to be showcased
-    const details ={'Owner Name':data.owner ,'Owner Phone number':data.owner_number,'RC Number':data.RC,'Last Manitanance':data.last_maintenance}
+    const details ={'Owner Name':data.ownerName ,'Owner Phone number':data.ownerPhone,'RC Number':data.rcNumber,'Starting charge (3 Hours)':data.startPrice, "Per Hour" :data.perHour, "Per hour Extra":data.perHourExtra,"Per Day":data.perDay}
     return <>
      <div className='p-2 text-sm md:p-4 mt-4 flex flex-col gap-3 md:grid md:grid-cols-2  md:text-base'>
 
@@ -24,7 +27,7 @@ export default function AllBikes() {
     ))}
     {/* data.RC will be replaced with Data.id
      bikeDetails?id=$value will redirect to bikedetail component with the bike id which will further use to fetch all the details of the bike */}
-    <Link className='text-red-500 underline' to={`bikeDetails?id=${data.RC}`} >View Details</Link>
+    <Link className='text-red-500 underline' to={`bikeDetails/${data._id}`} >View Details</Link>
     
     </div>
     <div className='flex justify-center'>
@@ -33,18 +36,31 @@ export default function AllBikes() {
     </div>
   </>
   }
+
+  //on search
   const handleSearch = (data)=>{
     setSearchInput(data.target.value);
     const filterValue = data.target.value;
-    const allBike = bikesDetails.filter((bike)=>{
+    const allBike = allBikes.filter((bike)=>{
       return bike.name.toLowerCase().includes(filterValue.toLowerCase()) || bike.RC.toLowerCase().includes(filterValue.toLowerCase()) || bike.owner.toLowerCase().includes(filterValue.toLowerCase())
     })
-    console.log(allBike);
+
     setBikes(allBike);
   }
+
+  async function fetchBikes(){
+     await GET("/bikes/getAllBikes").then(e=>{
+      setallBikes(e.data)
+      console.log(e.data);
+      setBikes(e.data)
+    }).catch(e=>{
+      console.log(e);
+    })
+
+  }
+
   useEffect(()=>{
-    setBikesDetails(bikeData);
-    setBikes(bikeData);
+    fetchBikes()
   },[])
 
   return (
@@ -62,8 +78,8 @@ export default function AllBikes() {
       <div className='mt-5 border-2 border-black dark:border-white  radius1 p-3'>
         <div className="w-full p-2  grid grid-cols-4 gap-4 text-sm md:text-base" >
           <div className="text-center  dark:bg-[#222222] p-1">Bike name</div>
-          <div className="text-center  dark:bg-[#222222] p-1">Owner name</div>
-          <div className=" text-center  dark:bg-[#222222] p-1">Rc number</div>
+          <div className="text-center  dark:bg-[#222222] p-1">RC Number</div>
+          <div className=" text-center  dark:bg-[#222222] p-1">Recent Maintanance</div>
           <div className=" text-center  dark:bg-[#222222] text-green-500 p-1">Status</div>
 
         </div>
@@ -71,7 +87,7 @@ export default function AllBikes() {
           {bikes?.map((bike, id)=>{
             return(
               <span key={id} className={id%2===0?'bg-gray-300 dark:bg-[#2b2b2b]' : 'bg-gray-400 dark:bg-[#111111]'}>
-                <ListAccordian  data={bike}  heading={[bike.name,bike.owner,bike.RC,bike.available?'Available':'Alloted']} ListAccordianDetail={ListAccordianDetail} />
+                <ListAccordian  data={bike}  heading={[bike.bikeName,bike.rcNumber,bike.recentMaintanace,bike.status?'Available':'Alloted']} ListAccordianDetail={ListAccordianDetail} />
 
               </span>
             )

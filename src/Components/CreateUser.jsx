@@ -136,7 +136,7 @@ export default function CreateUser() {
         navigate('/')
       }, 3000);
     }).catch((err) => {
-      setToastMessage(err.message)
+      setToastMessage(err.data.message)
       setShowToast(true);
     })
     

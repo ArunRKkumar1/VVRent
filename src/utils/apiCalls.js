@@ -2,7 +2,7 @@ import axios from 'axios';
 const BASE_URL = 'http://localhost:5000/api/v1'
 
 
-const GET =  async (url, body) => {
+const GET =  async (url, body={}) => {
     try {
         const response = await axios.get(`${BASE_URL}${url}`, {
           data:body,  
@@ -11,9 +11,9 @@ const GET =  async (url, body) => {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
           }
         });
-        return  Promise.resolve(response);
+        return  response;
       } catch (error) {
-        return  Promise.reject(error);
+        throw  error;
       }
 }
 const POST = async (url, data) => {
@@ -23,10 +23,9 @@ const POST = async (url, data) => {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
           }
         });
-        return  Promise.resolve(response);
+        return  response;
       } catch (error) {
-        console.log(error);
-        return  Promise.reject(error.response.data);
+        throw  await error.response;
       }
 }
 const PUT = async (url, body) => {
@@ -37,9 +36,9 @@ const PUT = async (url, body) => {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
           }
         });
-        return  Promise.resolve(response);
+        return  response;
       } catch (error) {
-        return  Promise.reject(error);
+        throw  error;
       }
 }
 const DELETE = async (url) => {
@@ -50,9 +49,9 @@ const DELETE = async (url) => {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
           }
         });
-        return  Promise.resolve(response);
+        return  response;
       } catch (error) {
-        return  Promise.reject(error);
+        throw  error;
       }
 }
 

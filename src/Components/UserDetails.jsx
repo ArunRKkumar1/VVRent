@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import defaultProfile from '../images/profile.png'
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import users from '../Data/user.json';
 import ListAccordian from './subComponent/ListAccordian';
 import Input from './subComponent/Input';
-export default function BikeDetails() {
+export default function UserDetails() {
   const location = useLocation();
   const [user, setUser] = useState();
-  const queryParams = new URLSearchParams(location.search);
-  const userId = queryParams.get('id');
+  // const queryParams = new URLSearchParams(location.search);
+  // const userId = queryParams.get('id');
+
+  const {userId} = useParams();
 
   //Custom function to show all booking from the user details for List Accordian
   const ListAccordianDetail = ({ data }) => {
@@ -37,9 +39,11 @@ export default function BikeDetails() {
 
   // this function will be replaced by api call
   useEffect(() => {
-    setUser(users.find((user) => user.name == userId));
+    setUser(users.find((user) => user.userId == userId));
     console.log(user);
   }, [])
+
+  // 
 
   return (
     <div className='container m-auto pt-4 md:p-4 w-full min-h-full md:w-3/4 custom-Scroll'>
