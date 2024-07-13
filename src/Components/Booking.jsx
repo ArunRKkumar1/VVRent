@@ -7,8 +7,12 @@ import { data } from 'autoprefixer'
 import Input from './subComponent/Input'
 import Select from './subComponent/Select'
 import { useForm } from 'react-hook-form'
-import { GET } from '../utils/apiCalls.js'
+import { GET, POST } from '../utils/apiCalls.js'
 import Error from './subComponent/Error.jsx'
+import { currentTime, currentDate, dataTimeToTimestamp } from '../utils/dateAndTime.js'
+import Toast from './subComponent/Toast.jsx'
+import { useNavigate } from 'react-router-dom'
+import Loader from './subComponent/Loader.jsx'
 
 //https://aegies.com/
 
@@ -20,6 +24,14 @@ export default function CreateUser() {
     const [userEmail, setUserEmail] = useState('');
     const [userData, setUserData] = useState({})
     const [bikesData, setBikesData] = useState([]);
+    const navigate = useNavigate();
+
+    //showLoader
+    const [showLoader, setShowLoader] = useState(false);
+
+    //Toast
+    const [showToast, setShowToast] = useState(false);
+    const [toastMessage, setToastMessage] = useState("");
 
     // default time data
     const [currenTime, setCurrenTime] = useState({ date: '', time: '' });
@@ -41,23 +53,11 @@ export default function CreateUser() {
             setBikesData(res.data)
         }).catch(err=>console.log(err))
     }
-    // generate current time for default date and time
-    const generateTime = () => {
-        handleGetBikeList();
-        const now = new Date();
-        const hours = now.getHours().toString().padStart(2, '0');
-        const minutes = now.getMinutes().toString().padStart(2, '0');
-        return `${hours}:${minutes}`;
-    }
-  
-    //set current time to input time and fetch bikeList
-    // useEffect(() => {
-    //     const time = { date: new Date().toISOString().slice(0, 10), time: generateTime() }
-    //     setCurrenTime(time);
-    // }, [])
+
 
     useEffect(() => {
-        const time = { date: new Date().toISOString().slice(0, 10), time: generateTime() };
+        handleGetBikeList();
+        const time = { date: currentDate(), time: currentTime() };
         setCurrenTime(time);
         setValue('bookingDate', time.date);  // Set form default value for bookingDate
         setValue('bookingTime', time.time);  // Set form default value for bookingTime
@@ -65,7 +65,6 @@ export default function CreateUser() {
     }, []);
 
     const filterBikeList = (input) => {
-        // console.log(input);
         const res = bikesData.filter((e) => {
             const { bikeName, rcNumber } = e;
             return bikeName.toLowerCase().includes(input.toLowerCase()) || rcNumber.includes(input.toUpperCase())
@@ -90,23 +89,34 @@ export default function CreateUser() {
         {
             alert('Enter User and bike details');
             return;
+            return;
         }
         const reqData = {
             ...data,
+            bookingDate: data.bookingDate,
+            bookingTime: data.bookingTime,
+            advanceAmount:Number(data.advanceAmount),
             bikeId: bike._id,
-            bikeName: bike.bikeName,
-            rcNumber: bike.rcNumber,
+            bikeName: bike.bikeName+" "+bike.rcNumber,
             userId: userData._id,
             userName: userData.name,
-            userEmail,
-            userLicense: userData.licenseNumber,
-            userAadhaar: userData.aadhaar,
-            userPhone: userData.phone,
-
+            userContact: userData.phone,
         }
-        console.log(reqData);
+        setShowLoader(true);
+        await POST('/booking/register', reqData).then((res) => {
+            alert(res.data.message);
+            navigate('/')
+
+        }).catch((err) => {
+            setShowToast(true);
+            setToastMessage(err.message);
+        })
+        setShowLoader(false);
     }
     return (
+        <>
+        {showLoader && <Loader/>}
+        {showToast &&<Toast message={toastMessage} setShow={setShowToast} />}
         <div className='container  mt-4 m-auto p-3 pt-4 w-full md:w-2/3 '>
             <h1 className='heading  text-center   dark:text-white'>Booking Ride</h1>
             <form className='w-full flex flex-col gap-7 ' onSubmit={handleSubmit(submit)}>
@@ -180,7 +190,7 @@ export default function CreateUser() {
                 </div>
                 <div className='input-container  w-full radius1 p-4 mt-4 text-white  bg-[#3B4179] dark:bg-[#222222]'>
                     <h1 className='text-2xl'>Advance Payment</h1>
-                    <Input label="Amount" type='number' className='input1 w-1/3' {...register('advanceAmount', {required:true})}/>
+                    <Input min={0} label="Amount" type='number' className='input1 w-1/3' {...register('advanceAmount', {required:true})}/>
                     {errors.advanceAmount && <Error message={"required, atleast enter 0"} />}
                     <div className='mt-4'>
                         <label className='inp-label1 underline' >Payment Mode</label>
@@ -204,9 +214,10 @@ export default function CreateUser() {
                         </span>
                     </div>
                     <div className="flex gap-4 items-end ">
-                        <Input type='number' defaultValue='3' min='1' max='23' maxLength='2' className='input1 w-1/3' label='duration' {...register('bookingDuration')}/>
-                        <Select className='w-1/4' options={['Days']} defaultValue={'Hours'} {...register('bookingPeriod')}/>
-                        {errors.bookingDuration && <Error message={errors.bookingDuration.message} />}
+                        <Input type='number' defaultValue='3' min='1' max='23' maxLength='2' className='input1 w-1/3' label='duration' {...register('duration')}/>
+                        {errors.duration && <Error message={errors.duration.message} />}
+                        <Select className='w-1/4' options={['Hours','Days']} defaultValue={'Hours'} {...register('durationType')}/>
+                        {errors.durationType && <Error message={errors.durationType.message} />}
                     </div>
 
                 </div>
@@ -219,5 +230,6 @@ export default function CreateUser() {
                 </div>
             </form>
         </div>
+        </>
     )
 }

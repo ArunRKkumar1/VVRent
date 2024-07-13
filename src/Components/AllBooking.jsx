@@ -1,24 +1,20 @@
 import Input from './subComponent/Input'
 import React, { useEffect, useState } from 'react'
-import allUser from '../Data/user.json'
 import ListAccordian from './subComponent/ListAccordian'
 import { Link } from 'react-router-dom';
-import { GET } from '../utils/apiCalls';
-import Toast from './subComponent/Toast';
-export default function AllBikes() {
+import { GET } from '../utils/apiCalls.js';
+export default function AllBooking() {
   //All data fetched from Server
-  const [usersDatas,setUsersDatas] = useState([]);
-  // Filter data from all usersDetails
-  const [users,setUsers] = useState([]);
+  const [bookingDatas,setbookingDatas] = useState([]);
+  // Filter data from all bookingDetails
+  const [booking,setbooking] = useState([]);
   const[searchInput,setSearchInput] = useState('');
-  const [showToast,setShowToast] = useState(false);
-  const [toastMessage, setToastMessage] = useState("");
 
 
-  //Custom function to show all users details for List Accordian
+  //Custom function to show all booking details for List Accordian
   const ListAccordianDetail =({data})=>{
     
-    const details ={'User Name':data.name ,'Phone number':data.phone,'Addhaar':data.aadhaar,'Current Address':data.currentAddress,'License':data.licenseNumber, 'Verified':data.verified?"Verified":"Not Verified",};
+    const details ={'User Name':data.userName ,'Phone number':data.userContact, 'booking date': data.bookingDate, 'bookingTime':data.bookingTime};
     return <>
      <div className='p-2 text-sm md:p-4 mt-4 flex flex-col gap-3 md:grid md:grid-cols-2  md:text-base'>
 
@@ -30,49 +26,40 @@ export default function AllBikes() {
         <div>{value}</div>
     </div>
     ))}
-     <Link className='text-red-500 underline' to={`userDetails/${data.name}`} >View Details</Link>
+     <Link className='text-red-500 underline' to={`/manage/user/allUser/userDetails/${data.userId}`} >About User</Link>
+     <Link className='text-red-500 underline' to={`/manage/bike/allBikes/bikeDetails/${data.userId}`} >About Bike</Link>
+
     </div>
-    {/* this need to be fixed */}
-    <div className='flex justify-center'>
-              {data.profile && <img className='max-h-60' src={data.profile.url} alt="" />}
-          </div>
     </div>
   </>
   }
-
-
-  // function to filter data from all usersDetails
+  // function to filter data from all bookingDetails
   const handleSearch = (data)=>{
     setSearchInput(data.target.value);
     const filterValue = data.target.value;
-    const allUsers =  usersDatas.filter((user)=>{
+    const allbooking =  bookingDatas.filter((user)=>{
       return  user.name.toLowerCase().includes(filterValue.toLowerCase()) || user.email.toLowerCase().includes(filterValue.toLowerCase()) || user.contact.startsWith(filterValue.toLowerCase())
     })
-     setUsers(allUsers);
+     setbooking(allbooking);
   }
 
-
-  // Fetching all the user 
-  async function fetchAllUsers(){
-    await GET("/users/allUser").then(response=>{
-      console.log(response.data);
-      setUsersDatas(response.data)
-      setUsers(response.data)
-    }).catch(e=>{
-      setShowToast(true);
-      setToastMessage(e.message);
-    })
-  }
+  // this function will be replaced when backend is developed and 
   // data will be fetched from backend
   useEffect(()=>{
-    fetchAllUsers();
+    getBookings();
   },[])
 
+  const getBookings = async()=>{
+    await GET('/booking/bookings').then(res=>{
+      setbookingDatas(res.data)
+      setbooking(res.data)
+    })
+  
+  }
+
   return (
-    <>
-      {showToast && <Toast message={toastMessage} setShow={setShowToast} />}
     <div className='container mt-4 m-auto pt-4 w-full min-h-full md:w-3/4 custom-Scroll'>
-      <h1 className='heading  text-center  dark:text-white'>All Registered User</h1>
+      <h1 className='heading  text-center  dark:text-white'>All Booking</h1>
       {/* search to shortlist bikes from bike name, rc or owner name */}
       <div className='flex items-center gap-6 justify-end mt-12  '>
   
@@ -83,16 +70,17 @@ export default function AllBikes() {
       </div>
       {/* show all bikes */}
       <div className='mt-5 border-2 border-black dark:border-white  radius1 p-3'>
-        <div className="w-full p-2  grid grid-cols-3 gap-4 text-sm md:text-base" >
+        <div className="w-full p-2  grid grid-cols-4 gap-4 text-sm md:text-base" >
           <div className="text-center  dark:bg-[#222222] p-1">User name</div>
-          <div className="text-center  dark:bg-[#222222] p-1">Contact</div>
-          <div className=" text-center  dark:bg-[#222222] p-1 ">Email</div>
+          <div className="text-center  dark:bg-[#222222] p-1">Bike name</div>
+          <div className=" text-center  dark:bg-[#222222] p-1 ">Duration </div>
+          <div className=" text-center  dark:bg-[#222222] p-1 ">Status</div>
         </div>
         <ul className=' list-none mt-4 w-full flex flex-col gap-1 h-[50vh] overflow-y-scroll'>
-          {users?.map((user, id)=>{
+          {booking?.map((book, id)=>{
             return(
               <span key={id} className={id%2===0?'bg-gray-300 dark:bg-[#2b2b2b]' : 'bg-gray-400 dark:bg-[#111111]'}>
-                <ListAccordian data={user}  heading={[user.name,user.phone,user.email]} ListAccordianDetail={ListAccordianDetail} />
+                <ListAccordian data={book}  heading={[book.userName,book.bikeName,book.duration+" "+ book.durationType, book.status]} ListAccordianDetail={ListAccordianDetail} />
 
               </span>
             )
@@ -107,6 +95,5 @@ export default function AllBikes() {
         </ul>
       </div>
     </div>
-    </>
   )
 }
