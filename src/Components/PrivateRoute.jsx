@@ -26,6 +26,7 @@ export default function PrivateRoute() {
     // Optionally render a loading spinner or some placeholder while validation is pending
     return <Loader/>;
   }
+  
 
   return isValid ? <Outlet /> : <Navigate to="/login"/> 
 }
