@@ -87,7 +87,7 @@ export default function AllBikes() {
           {bikes?.map((bike, id)=>{
             return(
               <span key={id} className={id%2===0?'bg-gray-300 dark:bg-[#2b2b2b]' : 'bg-gray-400 dark:bg-[#111111]'}>
-                <ListAccordian  data={bike}  heading={[bike.bikeName,bike.rcNumber,bike.recentMaintanace,bike.status?'Available':'Alloted']} ListAccordianDetail={ListAccordianDetail} />
+                <ListAccordian  data={bike}  heading={[bike.bikeName,bike.rcNumber,bike.recentMaintanace,bike.status]} ListAccordianDetail={ListAccordianDetail} />
 
               </span>
             )

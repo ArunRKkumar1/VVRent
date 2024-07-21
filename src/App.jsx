@@ -20,6 +20,9 @@ import Login from './Components/Login';
 import DashBoard from './Components/DashBoard';
 import PrivateRoute from './Components/PrivateRoute';
 import AllBooking from './Components/AllBooking';
+import ExtendBooking from './Components/ExtendBooking';
+import EndBooking from './Components/EndBooking';
+import AllRefund from './Components/AllRefund';
 
 function App() {
   const [darkMode, setDarkMode] = useState(localStorage.getItem('darkMode') === 'true');
@@ -47,8 +50,11 @@ function App() {
               <Route exact path="/manage/user/createUser" element={<CreateUser />} />
               <Route exact path="/manage/booking/addBooking" element={<Booking />} />
               <Route exact path="/manage/booking/allBooking" element={<AllBooking />} />
+              <Route exact path="/manage/booking/extend" element={<ExtendBooking />} />
+              <Route exact path="/manage/booking/endRide/:id" element={<EndBooking />} />
               <Route exact path="/manage/user/allUser" element={<AllUsers />} />
               <Route exact path="/manage/user/allUser/userDetails/:userId" element={<UserDetails />} />
+              <Route exact path="/manage/refund/allRefund" element={<AllRefund />} />
             </Route>
             <Route exact path="/login" element={<Login />} />
 

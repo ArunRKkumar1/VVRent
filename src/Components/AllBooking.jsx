@@ -29,6 +29,8 @@ export default function AllBooking() {
      <Link className='text-red-500 underline' to={`/manage/user/allUser/userDetails/${data.userId}`} >About User</Link>
      <Link className='text-red-500 underline' to={`/manage/bike/allBikes/bikeDetails/${data.userId}`} >About Bike</Link>
 
+     <Link className='text-red-500 underline' to={`/manage/booking/endRide/${data._id}`} >End Ride</Link>
+      
     </div>
     </div>
   </>

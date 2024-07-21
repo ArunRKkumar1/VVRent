@@ -1,6 +1,6 @@
 import Input from './subComponent/Input'
 import React, { useEffect, useState } from 'react'
-import allUser from '../Data/user.json'
+
 import ListAccordian from './subComponent/ListAccordian'
 import { Link } from 'react-router-dom';
 import { GET } from '../utils/apiCalls';

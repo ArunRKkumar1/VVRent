@@ -80,16 +80,16 @@ export default function AddBike() {
                             </div>
                             <div className="input-container bg-[#3B4179] dark:bg-[#222222]">
                                 <h1 className=''>Prices</h1>
-                                <Input label='Starting' className='input1'  {...register("startPrice", { required: true })} />
+                                <Input type="number" label='Starting' className='input1'  {...register("startPrice", { required: true })} />
                                 {errors.startPrice && <ErrorDialog message="required" />}
 
-                                <Input label='Per hour' className='input1' {...register("perHour", { required: true })} />
+                                <Input label='Per hour' type="number" className='input1' {...register("perHour", { required: true })} />
                                 {errors.perHour && <ErrorDialog message="required" />}
 
-                                <Input label='Per hour (extra)' className='input1'{...register("perHourExtra", { required: true })} />
+                                <Input label='Per hour (extra)' type="number" className='input1'{...register("perHourExtra", { required: true })} />
                                 {errors.perHourExtra && <ErrorDialog message="required" />}
 
-                                <Input label='Per Day' className='input1'{...register("perDay", { required: true })} />
+                                <Input label='Per Day' type="number" className='input1'{...register("perDay", { required: true })} />
                                 {errors.perHourExtra && <ErrorDialog message="required" />}
 
                             </div>
@@ -126,7 +126,7 @@ export default function AddBike() {
                                 <Input label='Insurance number' type='number' className='input1' {...register("insuranceNumber", { required: true })} />
                                 {errors.insuranceNumber && <ErrorDialog message="required" />}
 
-                                <Input label='Insurance Document' className="input1" style={{ padding: 0, color: 'white' }} type="file" name="Insurance docs" accept="application/pdf,image/*,application/vnd.ms-excel"  {...register("insuranceDocs", { required: true })} />
+                                <Input label='Insurance Document' className="input1" style={{ padding: 0, color: 'white' }} type="file" name="RC  docs" accept="application/pdf,image/*,application/vnd.ms-excel"  {...register("insuranceDocs", { required: true })} />
                                 {errors.insuranceDocs && <ErrorDialog message="required" />}
 
                                 {/* <Input label='RC Document' className="input1"  style={{padding:0,color:'white'}} type="file" name="Insurance docs" accept="application/pdf,image/*,application/vnd.ms-excel" onChange={e=>setFile(e.target.files[0])} /> */}
