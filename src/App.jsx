@@ -42,10 +42,10 @@ function App() {
         <Routes>
             <Route exact path="/" element={<PrivateRoute />}>
               <Route exact path="/" element={<DashBoard />} />
-              <Route exact path="/manage/bike/editBike/" element={<EditBikeModal />} />
               <Route exact path="/manage/bike/editBike/:id" element={<EditBike />} />
               <Route exact path="/manage/bike/addBike" element={<AddBike />} />
               <Route exact path="/manage/bike/allBikes" element={<AllBikes />} />
+              <Route exact path="/manage/bike/editBike/" element={<EditBikeModal />} />
               <Route exact path="/manage/bike/allBikes/bikeDetails/:bikeId" element={<BikeDetails />} />
               <Route exact path="/manage/user/createUser" element={<CreateUser />} />
               <Route exact path="/manage/booking/addBooking" element={<Booking />} />

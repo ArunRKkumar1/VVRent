@@ -74,7 +74,10 @@ export default function ExtendBooking() {
     //submitting and complete the booking
     async function submit(data) {
         await POST(`/booking/bookingReceipt/refund/${bookingId}`,
-            {...data,userName:responseData.userName,userId: responseData.userId, doRefund:toggleCreateRefund }).then(e=>{
+            {...data,userName:responseData.userName,userId: responseData.userId, doRefund:toggleCreateRefund,
+                totalFair:responseData.totalFair,
+                totalDuration:responseData.ridingDuration
+             }).then(e=>{
             setShowToast(true)
             setToastMessage("Ride end")
         }).catch(e=>{

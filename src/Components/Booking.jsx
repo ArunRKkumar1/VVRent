@@ -13,6 +13,7 @@ import { currentTime, currentDate, dataTimeToTimestamp } from '../utils/dateAndT
 import Toast from './subComponent/Toast.jsx'
 import { useNavigate } from 'react-router-dom'
 import Loader from './subComponent/Loader.jsx'
+import moment from 'moment'
 
 //https://aegies.com/
 
@@ -33,8 +34,6 @@ export default function CreateUser() {
     const [showToast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState("");
 
-    // default time data
-    const [currenTime, setCurrenTime] = useState({ date: '', time: '' });
 
 
     //useForm configuration
@@ -55,12 +54,12 @@ export default function CreateUser() {
     }
 
 
-    useEffect(() => {
+    useEffect(() => {      
         handleGetBikeList();
-        const time = { date: currentDate(), time: currentTime() };
-        setCurrenTime(time);
-        setValue('bookingDate', time.date);  // Set form default value for bookingDate
-        setValue('bookingTime', time.time);  // Set form default value for bookingTime
+
+        //Setting Default time and date
+        setValue('bookingDate', moment().format("yyyy-MM-DD"));  // Set form default value for bookingDate
+        setValue('bookingTime', moment().format('HH:mm'));  // Set form default value for bookingTime
         handleGetBikeList(); // Assuming handleGetBikeList fetches the bike list
     }, []);
 
@@ -205,11 +204,11 @@ export default function CreateUser() {
                     <h1 className='text-2xl'>Booking Time</h1>
                     <div className="flex gap-5">
                         <span >
-                            <Input inputClass='text-black' className="input1 w-auto" label="Start date" type='date' defaultValue={currenTime.date} {...register('bookingDate')} />
+                            <Input inputClass='text-black' className="input1 w-auto" label="Start date" type='date'  {...register('bookingDate')} />
                             {errors.bookingDate && <Error message={errors.bookingDate.message} />}
                         </span>
                         <span >
-                            <Input inputClass='text-black' className="input1 w-auto" label="Start time" type='time' defaultValue={currenTime.time} {...register('bookingTime')}/>
+                            <Input inputClass='text-black' className="input1 w-auto" label="Start time" type='time'  {...register('bookingTime')}/>
                             {errors.bookingTime && <Error message={errors.bookingTime.message} />}
                         </span>
                     </div>
