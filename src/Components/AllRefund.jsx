@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { GET, PUT } from '../utils/apiCalls.js';
 import Loader from './subComponent/Loader.jsx';
 import Toast from './subComponent/Toast.jsx';
+import moment from 'moment'
 
 export default function AllRefund() {
     //All data fetched from Server
@@ -33,7 +34,7 @@ export default function AllRefund() {
     }
     const ListAccordianDetail = ({ data }) => {
 
-        const details = { 'User Name': data.userName, 'Refund date': data.phone, 'Amount': data.amount, status: data.status };
+        const details = { 'User Name': data.userName, 'Refund date': data.phone, 'Amount': data.amount, status: data.status, "Date and time": moment(data.createdAt).format("Do MMMM YYYY - h:mm A") };
         return <>
             <div className='p-2 text-sm md:p-4 mt-4 flex flex-col gap-3 md:grid md:grid-cols-2  md:text-base'>
 
