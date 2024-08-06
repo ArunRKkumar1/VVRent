@@ -22,7 +22,7 @@ export default function CreateUser() {
     const paymentModes = ['Other','Paytm', 'PhonePay', 'BharatPay', 'GPay', 'Amazon Pay', 'Bharat UPI', 'Cash']
     const [bikeList, setBikeList] = useState([]);
     const [bike, setBike] = useState({});
-    const [userEmail, setUserEmail] = useState('');
+    const [userSearchInp, setUserSearchInp] = useState('');
     const [userData, setUserData] = useState({})
     const [bikesData, setBikesData] = useState([]);
     const navigate = useNavigate();
@@ -73,13 +73,14 @@ export default function CreateUser() {
 
     // Find user Credential
     const handleFindUser = async () => {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if(!emailRegex.test(userEmail))
+        const emailRegex = /^[a-z0-9]+@[a-z]+.[a-z]+$/;
+        const phoneRegex =/^\d{10}$/
+        if(!emailRegex.test(userSearchInp) && ! phoneRegex.test(userSearchInp))
         {
-            alert("Invalid email format");
+            alert("Invalid search input format invalid!");
             return;
         }
-        await GET(`/users/getUserCredentials/${userEmail}`).then((res) => {
+        await GET(`/users/getUserCredentials/${userSearchInp}`).then((res) => {
             setUserData(res.data)
         }).catch(err => alert("User data not available"))
     }
@@ -87,7 +88,6 @@ export default function CreateUser() {
         if(!userData || !bike)
         {
             alert('Enter User and bike details');
-            return;
             return;
         }
         const reqData = {
@@ -121,7 +121,7 @@ export default function CreateUser() {
             <form className='w-full flex flex-col gap-7 ' onSubmit={handleSubmit(submit)}>
                 <div className='input-container  w-full radius1 p-4 mt-4 text-white  bg-[#3B4179] dark:bg-[#222222]'>
                     <h1 className='text-2xl'>User Details</h1>
-                    <Input label={"Email"} className='input1' value={userEmail} onChange={e => setUserEmail(e.target.value)} />
+                    <Input label={"Email or Phone no."} className='input1' value={userSearchInp} onChange={e => setUserSearchInp(e.target.value)} />
                     <button className='btn1 mt-3' type='button' onClick={handleFindUser} >Find</button>
 
                     {/* Auto fill user Data */}

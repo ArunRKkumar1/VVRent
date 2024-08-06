@@ -27,6 +27,20 @@ import AllRefund from './Components/AllRefund';
 function App() {
   const [darkMode, setDarkMode] = useState(localStorage.getItem('darkMode') === 'true');
 
+  //disable scroll input change to all the input with type number
+  useEffect(() => {
+    const handleWheel = (event) => {
+        if (event.target.type === 'number') {
+            event.preventDefault();
+        }
+    };
+
+    document.addEventListener('wheel', handleWheel, { passive: false });
+
+    return () => {
+        document.removeEventListener('wheel', handleWheel);
+    };
+}, []);
   return (
     <div className={`${darkMode ? 'dark' : ''} min-h-[100vh]  bg-white text-black transition-colors duration-700 dark:bg-black dark:text-white`}>
 
