@@ -27,7 +27,7 @@ export default function AllBikes() {
     ))}
     {/* data.RC will be replaced with Data.id
      bikeDetails?id=$value will redirect to bikedetail component with the bike id which will further use to fetch all the details of the bike */}
-    <Link className='text-red-500 underline' to={`bikeDetails/${data._id}`} >View Details</Link>
+    <Link className='text-red-500 underline' to={`bike-details/${data._id}`} >View Details</Link>
     
     </div>
     <div className='flex justify-center'>

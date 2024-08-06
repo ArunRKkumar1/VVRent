@@ -46,7 +46,7 @@ export default function AllRefund() {
                             <div>{value}</div>
                         </div>
                     ))}
-                    <Link className='text-red-500 underline' to={`/manage/user/allUser/userDetails/${data.userId}`} >About User</Link>
+                    <Link className='text-red-500 underline' to={`/manage/user/all-user/user-details/${data.userId}`} >About User</Link>
 
                     {data.status === "pending" && <button className='btn1' onClick={()=>completeRefund(data._id)}>Complete Refund</button>}
                     {/* <Link className='text-red-500 underline' to={`/manage/booking/allBikes/bikeDetails/${data.userId}`} >About Bike</Link> */}
