@@ -24,7 +24,8 @@ export default function AllBooking() {
         const details = { 'Booking Time': data.bookingDate+" "+ data.bookingTime , 'Grace Duration': data.duration+" "+data.durationType, 'Total Duration':totalDuratio, 'Booking End Time': data.endRideTime || "NULL", "Advance Amount":data.advanceAmount,
           "Advance Payment Mode":data.paymentMode,
           "Total Fair":data.totalFair || "NULL",
-          "Status":data.status
+          "Status":data.status,
+          "Helmet":data.helmet
         };
     return <>
       <div className='p-2 text-sm md:p-4 mt-4 flex flex-col gap-3 md:grid md:grid-cols-2  md:text-base'>
@@ -50,8 +51,8 @@ export default function AllBooking() {
   const handleSearch = (data) => {
     setSearchInput(data.target.value);
     const filterValue = data.target.value;
-    const allbooking = bookingDatas.filter((user) => {
-      return user.name.toLowerCase().includes(filterValue.toLowerCase()) || user.email.toLowerCase().includes(filterValue.toLowerCase()) || user.contact.startsWith(filterValue.toLowerCase())
+    const allbooking = bookingDatas.filter((book) => {
+      return book.userName.toLowerCase().startsWith(filterValue.toLowerCase()) || book.bikeName.toLowerCase().startsWith(filterValue.toLowerCase())
     })
     setbooking(allbooking);
   }
@@ -76,7 +77,7 @@ export default function AllBooking() {
     condition= "complete"
    }
 
-    await GET(`/booking/bookings/${condition}`).then(res => {
+    await GET(`/booking/all/${condition}`).then(res => {
       setbookingDatas(res.data)
       setbooking(res.data)
     })
@@ -104,7 +105,8 @@ export default function AllBooking() {
       {/* <button className='btn1 ' onClick={handleSearch} >Search</button> */}
       {/* show all bikes */}
       <div className='mt-5 border-2 border-black dark:border-white  radius1 p-3'>
-        <div className="w-full p-2  grid grid-cols-4 gap-4 text-sm md:text-base" >
+        <div className="w-full p-2  grid grid-cols-5 gap-3 text-sm md:text-base" >
+          <div className=" text-center  dark:bg-[#222222] p-1 ">Date and Time</div>
           <div className="text-center  dark:bg-[#222222] p-1">User name</div>
           <div className="text-center  dark:bg-[#222222] p-1">Bike name</div>
           <div className=" text-center  dark:bg-[#222222] p-1 ">Duration </div>
@@ -114,7 +116,7 @@ export default function AllBooking() {
           {booking?.map((book, id) => {
             return (
               <span key={id} className={id % 2 === 0 ? 'bg-gray-300 dark:bg-[#2b2b2b]' : 'bg-gray-400 dark:bg-[#111111]'}>
-                <ListAccordian data={book} heading={[book.userName, book.bikeName, book.duration + " " + book.durationType, book.status]} ListAccordianDetail={ListAccordianDetail} />
+                <ListAccordian data={book} heading={[book.bookingDate+", "+book.bookingTime ,book.userName, book.bikeName, book.duration + " " + book.durationType, book.status]} ListAccordianDetail={ListAccordianDetail} />
 
               </span>
             )

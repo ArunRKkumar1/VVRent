@@ -18,7 +18,7 @@ import { RiUserAddFill } from "react-icons/ri";
 import { SiGoogletagmanager } from "react-icons/si";
 import { TbWriting } from "react-icons/tb";
 import { HiReceiptRefund } from "react-icons/hi";
-
+import { GiReceiveMoney } from "react-icons/gi";
 
 const routes = [
   {
@@ -102,9 +102,16 @@ const routes = [
     ]
   },
   {
-    path: "/analytics",
-    name: "Analytics",
-    icon: <BiAnalyse />,
+    path: "/borrowers",
+    name: "Borrowing",
+    icon: <GiReceiveMoney />,
+    subRoutes: [
+      {
+        path: "/manage/borrowers/all",
+        name: "All Borrowers ",
+        icon: <FaListOl/>,
+      },
+    ]
   },
   {
     path: "/file-manager",
