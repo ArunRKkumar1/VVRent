@@ -147,7 +147,7 @@ export default function CreateUser() {
   
     setOtp("")
     setShowLoader(true)
-    await POST('/users/sendOtp',{email:data.email}).then((res)=>{
+    await POST('/users/send-otp',{email:data.email}).then((res)=>{
       console.log(res.data.message);
       setToastMessage(`Otp is send to ${data.email} and +91 ${data.phone}`);
       setShowToast(true);

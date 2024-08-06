@@ -47,7 +47,7 @@ export default function CreateUser() {
 
     //fetch all the bikes
   const handleGetBikeList = async()=>{
-        await GET(`/bikes/listBikes`).then((res)=>{
+        await GET(`/bikes/list-bikes`).then((res)=>{
             
             setBikesData(res.data)
         }).catch(err=>console.log(err))
@@ -80,7 +80,7 @@ export default function CreateUser() {
             alert("Invalid search input format invalid!");
             return;
         }
-        await GET(`/users/getUserCredentials/${userSearchInp}`).then((res) => {
+        await GET(`/users/get-user-credentials/${userSearchInp}`).then((res) => {
             setUserData(res.data)
         }).catch(err => alert("User data not available"))
     }

@@ -22,8 +22,9 @@ export default function AllBorrow() {
     //Custom function to show all borrow details for List Accordian
     const completeborrow = async(id)=>{
         setLoading(true);
-         PUT(`/borrow/completeBorrow/${id}`)
+         PUT(`/borrow/complete-borrow/${id}`)
          .then(()=>{
+            alert("Refund done")
             getborrows();
          }).catch((err)=>{
             setShowToast(true);

@@ -62,7 +62,7 @@ const endRideTime =moment(data.endRideTime, 'Do MMMM YYYY h:mm:ss A');
 
   //Fetching User Data
   async function fetchUserData() {
-    GET(`/users/userDetails/${userId}`).then(e => {
+    GET(`/users/user-details/${userId}`).then(e => {
       setUser(e.data);
     })
   }
@@ -70,7 +70,7 @@ const endRideTime =moment(data.endRideTime, 'Do MMMM YYYY h:mm:ss A');
   //Fetching All booking Done by user
 
   async function fetchBookingData() {
-    GET(`/booking/userBookings/${userId}`).then(e => {
+    GET(`/booking/user-bookings/${userId}`).then(e => {
       setBookings(e.data);
     })
   }

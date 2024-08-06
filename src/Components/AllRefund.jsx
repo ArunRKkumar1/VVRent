@@ -22,8 +22,9 @@ export default function AllRefund() {
     //Custom function to show all refund details for List Accordian
     const completeRefund = async(id)=>{
         setLoading(true);
-         PUT(`/refund/completeRefund/${id}`)
+         PUT(`/refund/complete-refund/${id}`)
          .then(()=>{
+            alert("Refund done")
             getrefunds();
          }).catch((err)=>{
             setShowToast(true);
@@ -81,7 +82,7 @@ export default function AllRefund() {
             condition ="pending";
         else
             condition ="done";
-        await GET(`/refund/allRefunds/?status=${condition}`).then(res => {
+        await GET(`/refund/all-refunds/?status=${condition}`).then(res => {
             setRefundDatas(res.data)
             setRefund(res.data)
         })

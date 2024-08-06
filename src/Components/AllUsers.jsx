@@ -54,7 +54,7 @@ export default function AllBikes() {
 
   // Fetching all the user 
   async function fetchAllUsers(){
-    await GET("/users/allUser").then(response=>{
+    await GET("/users/all-user").then(response=>{
       console.log(response.data);
       setUsersDatas(response.data)
       setUsers(response.data)
