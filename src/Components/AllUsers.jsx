@@ -30,7 +30,7 @@ export default function AllBikes() {
         <div>{value}</div>
     </div>
     ))}
-     <Link className='text-red-500 underline' to={`userDetails/${data._id}`} >View Details</Link>
+     <Link className='text-red-500 underline' to={`user-details/${data._id}`} >View Details</Link>
     </div>
     {/* this need to be fixed */}
     <div className='flex justify-center'>

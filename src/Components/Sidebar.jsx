@@ -32,17 +32,17 @@ const routes = [
     icon: <RiMotorbikeFill />,
     subRoutes: [
       {
-        path: "/manage/bike/addBike",
+        path: "/manage/bike/add-bike",
         name: "Add Bike ",
         icon: <IoMdAdd />,
       },
       {
-        path: "/manage/bike/editBike/",
+        path: "/manage/bike/edit-bike/",
         name: "Edit Bike",
         icon: <FaRegEdit />,
       },
       {
-        path: "/manage/bike/allBikes",
+        path: "/manage/bike/all-bikes",
         name: "All Bikes",
         icon: <FaListOl />,
       },
@@ -55,12 +55,12 @@ const routes = [
     icon: <FaUser />,
     subRoutes: [
       {
-        path: "/manage/user/createUser",
+        path: "/manage/user/create-user",
         name: "Create User ",
         icon: <RiUserAddFill />,
       },
       {
-        path: "/manage/user/allUser",
+        path: "/manage/user/all-user",
         name: "All User",
         icon: <FaListOl />,
       },
@@ -72,17 +72,17 @@ const routes = [
     icon: <SiGoogletagmanager />,
     subRoutes: [
       {
-        path: "/manage/booking/addBooking",
+        path: "/manage/booking/add-booking",
         name: "Add booking",
         icon: <TbWriting />,
       },
       {
-        path: "/manage/booking/allBooking",
+        path: "/manage/booking/all-booking",
         name: "All Booking",
         icon: <FaListOl />,
       },
       {
-        path: "/manage/booking/Extend",
+        path: "/manage/booking/extend",
         name: "Extend Duration",
         icon: <IoMdAdd />,
       },
@@ -95,7 +95,7 @@ const routes = [
     ,
     subRoutes:[
       {
-        path: "/manage/refund/allRefund",
+        path: "/manage/refund/all-refund",
         name: "All Refunds",
         icon: <FaListOl />,
       },

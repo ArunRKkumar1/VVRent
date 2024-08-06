@@ -13,7 +13,7 @@ export default function UserDetails() {
   // const queryParams = new URLSearchParams(location.search);
   // const userId = queryParams.get('id');
 
-  const { userId } = useParams();
+  const  userId = useParams().id;
   // User data formatting
   function formattingData() {
     return {

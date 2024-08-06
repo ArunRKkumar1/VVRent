@@ -57,19 +57,19 @@ function App() {
         <Routes>
             <Route exact path="/" element={<PrivateRoute />}>
               <Route exact path="/" element={<DashBoard />} />
-              <Route exact path="/manage/bike/editBike/:id" element={<EditBike />} />
-              <Route exact path="/manage/bike/addBike" element={<AddBike />} />
-              <Route exact path="/manage/bike/allBikes" element={<AllBikes />} />
-              <Route exact path="/manage/bike/editBike/" element={<EditBikeModal />} />
-              <Route exact path="/manage/bike/allBikes/bikeDetails/:bikeId" element={<BikeDetails />} />
-              <Route exact path="/manage/user/createUser" element={<CreateUser />} />
-              <Route exact path="/manage/booking/addBooking" element={<Booking />} />
-              <Route exact path="/manage/booking/allBooking" element={<AllBooking />} />
+              {/* <Route exact path="/manage/bike/edit-bike/:id" element={<EditBike />} /> */}
+              <Route exact path="/manage/bike/add-bike" element={<AddBike />} />
+              <Route exact path="/manage/bike/all-bikes" element={<AllBikes />} />
+              {/* <Route exact path="/manage/bike/edit-bike/" element={<EditBikeModal />} /> */}
+              <Route exact path="/manage/bike/allBikes/bike-details/:id" element={<BikeDetails />} />
+              <Route exact path="/manage/user/create-user" element={<CreateUser />} />
+              <Route exact path="/manage/booking/add-booking" element={<Booking />} />
+              <Route exact path="/manage/booking/all-booking" element={<AllBooking />} />
               <Route exact path="/manage/booking/extend" element={<ExtendBooking />} />
-              <Route exact path="/manage/booking/endRide/:id" element={<EndBooking />} />
-              <Route exact path="/manage/user/allUser" element={<AllUsers />} />
-              <Route exact path="/manage/user/allUser/userDetails/:userId" element={<UserDetails />} />
-              <Route exact path="/manage/refund/allRefund" element={<AllRefund />} />
+              <Route exact path="/manage/booking/end-ride/:id" element={<EndBooking />} />
+              <Route exact path="/manage/user/all-user" element={<AllUsers />} />
+              <Route exact path="/manage/user/all-user/user-details/:id" element={<UserDetails />} />
+              <Route exact path="/manage/refund/all-refund" element={<AllRefund />} />
               <Route exact path="/manage/borrowers/all" element={<AllBorrow />} />
             </Route>
             <Route exact path="/login" element={<Login />} />
