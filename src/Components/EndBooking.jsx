@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { GET, POST } from '../utils/apiCalls';
@@ -15,7 +16,9 @@ export default function ExtendBooking() {
     const [billingData, setBillingData] = useState({});
     const [refundAmountCal, setRefundAmountCal] = useState("");
     const [refundNumberDefault, setrefundNumberDefault] = useState("");
-    const [toggleCreateRefund, setToggleCreateRefund] = useState(true)
+    const [toggleCreateRefund, setToggleCreateRefund] = useState(false)
+    const [helmetConfirmation,setHelmetConfirmation] = useState(-1);
+    const navigater = useNavigate();
     const {
         register,
         control,
@@ -28,8 +31,11 @@ export default function ExtendBooking() {
     async function fetchBillingDetails() {
         await GET(`/booking/bookingReceipt/${bookingId}`).then(res => {
             setResponseData(res.data);
-            console.log(res.data);
-
+            if(res.data.totalFair<res.data.advanceAmount )
+                {
+                    setToggleCreateRefund(true)
+                }
+    
         }).catch(e => {
             setShowToast(true);
             setToastMessage(e.message);
@@ -52,14 +58,16 @@ export default function ExtendBooking() {
             "Bike Starting Charge": responseData.bikeStartingFair + ' /3h',
             "Bike Per Hour Charge": responseData.bikePerHourFair + ' /h',
             "Bike Per Hour Extra charge": responseData.bikePerHourExtraFair + " /h",
-            "Advance Deposit": responseData.advanceAmount,
-
+            
         }
         console.log(bookingData);
+        const remainingPayment = responseData.advanceAmount- responseData.totalFair;
         const billingDetails = {
             "Grace Fair": responseData.gracefair + " /-",
             "Extra Duration Fair": responseData.extraFair + " /-",
-            "Total Fair": responseData.totalFair + " /-"
+            "Total Fair": responseData.totalFair + " /-",
+            "Advance Deposit": responseData.advanceAmount+"/-",
+            "Remaining Payment": remainingPayment>0?remainingPayment+"/- Refund":Math.abs(remainingPayment)+"/- From Client"
         }
         setRefundAmountCal(responseData.advanceAmount - responseData.totalFair)
         setrefundNumberDefault(responseData.refundPhoneNumber)
@@ -73,13 +81,26 @@ export default function ExtendBooking() {
 
     //submitting and complete the booking
     async function submit(data) {
+        if(helmetConfirmation == -1)
+        {
+            alert("Write Helmet number");
+            return;
+        }
+        if(helmetConfirmation != responseData.helmet)
+        {
+            alert("Helmet is change")
+        }
         await POST(`/booking/bookingReceipt/refund/${bookingId}`,
             {...data,userName:responseData.userName,userId: responseData.userId, doRefund:toggleCreateRefund,
                 totalFair:responseData.totalFair,
-                totalDuration:responseData.ridingDuration
+                totalDuration:responseData.ridingDuration,
+                bikeId:responseData.bikeId,
              }).then(e=>{
             setShowToast(true)
             setToastMessage("Ride end")
+            setTimeout(() => {
+               navigater("/")
+            }, 1000);
         }).catch(e=>{
             console.log(e);
             setShowToast(true)
@@ -113,6 +134,11 @@ export default function ExtendBooking() {
 
                             <div>Helmet</div>
                             <div>: {responseData.helmet ? responseData.helmet : ""}</div>
+                        </div>
+                        <div className={` p-1 grid grid-cols-2 auto-cols-fr gap-0 bg-gray-300 dark:bg-[#2b2b2b]`}>
+
+                            <div className='text-red-600'>Write Helmet No.</div>
+                            <input className='text-black' type="text" onChange={e=>setHelmetConfirmation(e.target.value)}/>
                         </div>
 
 

@@ -30,8 +30,11 @@ export default function UserDetails() {
 
   //Custom function to show all booking from the user details for List Accordian
   const ListAccordianDetail = ({ data }) => {
-
-    const details = { 'Booking Time': data.bookingTime , 'Grace Duration': data.duration+" "+data.durationType, 'Total Duration': data.totalDuration || "NULL", 'Booking End Time': data.endRideTime || "NULL", "Advance Amount":data.advanceAmount,
+const endTime = moment(data.endTime,'Do MMMM YYYY h:mm:ss A');
+const endRideTime =moment(data.endRideTime, 'Do MMMM YYYY h:mm:ss A');
+    const totalDuratio = moment.duration(endRideTime.diff(moment(data.createdAt))).humanize();
+  
+    const details = { 'Booking Time': data.bookingTime , 'Grace Duration': data.duration+" "+data.durationType, 'Total Duration':totalDuratio, 'Booking End Time': data.endRideTime || "NULL", "Advance Amount":data.advanceAmount,
       "Advance Payment Mode":data.paymentMode,
       "Total Fair":data.totalFair || "NULL",
       "Status":data.status
@@ -120,13 +123,13 @@ return (
         <div className="w-full p-2  grid grid-cols-3 gap-4 text-sm md:text-base" >
           <div className="text-center  dark:bg-[#222222] p-1">Booking Date</div>
           <div className="text-center  dark:bg-[#222222] p-1">Bike Name</div>
-          <div className=" text-center  dark:bg-[#222222] p-1 ">Ride Duration</div>
+          <div className=" text-center  dark:bg-[#222222] p-1 ">Status</div>
         </div>
         <ul className=' list-none mt-4 w-full flex flex-col gap-1 h-[50vh] overflow-y-scroll'>
           {bookings?.map((books, id) => {
             return (
               <span key={id} className={id % 2 === 0 ? 'bg-gray-300 dark:bg-[#2b2b2b]' : 'bg-gray-400 dark:bg-[#111111]'}>
-                <ListAccordian data={books} heading={[ moment(books.bookingDate,"YYYY-MM-DD").format("Do MMMM YYYY"), books.bikeName,books.totalDuration?books.totalDuration:"Running"]} ListAccordianDetail={ListAccordianDetail} />
+                <ListAccordian data={books} heading={[ moment(books.bookingDate,"YYYY-MM-DD").format("Do MMMM YYYY"), books.bikeName,books.status]} ListAccordianDetail={ListAccordianDetail} />
 {/* 2024-07-26 */}
               </span>
             )
