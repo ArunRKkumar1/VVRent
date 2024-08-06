@@ -30,7 +30,7 @@ export default function ExtendBooking() {
 
 
     async function fetchBillingDetails() {
-        await GET(`/booking/bookingReceipt/${bookingId}`).then(res => {
+        await GET(`/booking/booking-receipt/${bookingId}`).then(res => {
             setResponseData(res.data);
             if(res.data.totalFair<res.data.advanceAmount )
                 {
@@ -91,7 +91,7 @@ export default function ExtendBooking() {
         {
             alert("Helmet is change")
         }
-        await POST(`/booking/bookingReceipt/end/${bookingId}`,
+        await POST(`/booking/booking-receipt/end/${bookingId}`,
             {...data,userName:responseData.userName,userId: responseData.userId, doRefund:toggleCreateRefund,
                 doBorrow:toggleCreateBorrow,
                 totalFair:responseData.totalFair,

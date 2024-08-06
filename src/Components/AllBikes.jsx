@@ -49,9 +49,8 @@ export default function AllBikes() {
   }
 
   async function fetchBikes(){
-     await GET("/bikes/getAllBikes").then(e=>{
+     await GET("/bikes/get-all-bikes").then(e=>{
       setallBikes(e.data)
-      console.log(e.data);
       setBikes(e.data)
     }).catch(e=>{
       console.log(e);

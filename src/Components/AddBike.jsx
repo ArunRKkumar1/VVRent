@@ -47,7 +47,7 @@ export default function AddBike() {
             }
         }
         
-        await POST('/bikes/addBike', formData).then((res) => {
+        await POST('/bikes/add-bike', formData).then((res) => {
             setToastMessage(res.data.message);
             setShowToast(true);
             setTimeout(() => {

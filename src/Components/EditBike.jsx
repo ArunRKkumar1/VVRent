@@ -14,7 +14,7 @@ export default function EditBike() {
     const submitInput = useRef();
     useEffect(() => {
         if (!bikeId  || bikeId === 'null')
-            navigate('/manage/bike/editBike/')
+            navigate('/manage/bike/edit-bike/')
     }, [bikeId])
 
     //this code is just for showing loader for 5 sec need to be removed after backend
