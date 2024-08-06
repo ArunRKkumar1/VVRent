@@ -14,9 +14,10 @@ export default function ExtendBooking() {
     const [toastMessage, setToastMessage] = useState("");
     const [bookingDetails, setBookingDetails] = useState({});
     const [billingData, setBillingData] = useState({});
-    const [refundAmountCal, setRefundAmountCal] = useState("");
+    const [afterAdvanceAmount, setAfterAdvanceAmount] = useState("");
     const [refundNumberDefault, setrefundNumberDefault] = useState("");
     const [toggleCreateRefund, setToggleCreateRefund] = useState(false)
+    const [toggleCreateBorrow, setToggleCreateBorrow] = useState(false)
     const [helmetConfirmation,setHelmetConfirmation] = useState(-1);
     const navigater = useNavigate();
     const {
@@ -69,7 +70,7 @@ export default function ExtendBooking() {
             "Advance Deposit": responseData.advanceAmount+"/-",
             "Remaining Payment": remainingPayment>0?remainingPayment+"/- Refund":Math.abs(remainingPayment)+"/- From Client"
         }
-        setRefundAmountCal(responseData.advanceAmount - responseData.totalFair)
+        setAfterAdvanceAmount(responseData.advanceAmount - responseData.totalFair)
         setrefundNumberDefault(responseData.refundPhoneNumber)
         console.log(responseData.phone);
         setBookingDetails(bookingData);
@@ -90,11 +91,13 @@ export default function ExtendBooking() {
         {
             alert("Helmet is change")
         }
-        await POST(`/booking/bookingReceipt/refund/${bookingId}`,
+        await POST(`/booking/bookingReceipt/end/${bookingId}`,
             {...data,userName:responseData.userName,userId: responseData.userId, doRefund:toggleCreateRefund,
+                doBorrow:toggleCreateBorrow,
                 totalFair:responseData.totalFair,
                 totalDuration:responseData.ridingDuration,
                 bikeId:responseData.bikeId,
+                
              }).then(e=>{
             setShowToast(true)
             setToastMessage("Ride end")
@@ -133,7 +136,7 @@ export default function ExtendBooking() {
                         <div className={` p-1 grid grid-cols-2 auto-cols-fr gap-0 bg-gray-300 dark:bg-[#2b2b2b]`}>
 
                             <div>Helmet</div>
-                            <div>: {responseData.helmet ? responseData.helmet : ""}</div>
+                            <div>: {responseData.helmet!== -1 ? responseData.helmet : ""}</div>
                         </div>
                         <div className={` p-1 grid grid-cols-2 auto-cols-fr gap-0 bg-gray-300 dark:bg-[#2b2b2b]`}>
 
@@ -159,16 +162,22 @@ export default function ExtendBooking() {
                     </div>
                 </section>
 
-                <section name="Refund details">
+                <section name="Refund and Borrow details">
                     <div className='md:w-[50%] p-3 m-auto flex justify-center mt-4'>
-                        <span className=''>
+                        {/* For Refun */}
+                       {responseData&& responseData.totalFair<responseData.advanceAmount && <span className=''>
 
                             <input type='checkbox' defaultChecked={toggleCreateRefund} onChange={() => setToggleCreateRefund(e => !e)} /> Create Refund
-                        </span>
+                        </span>}
+                        {/* For Borrow */}
+                       {responseData&& responseData.totalFair>responseData.advanceAmount && <span className=''>
+
+                            <input type='checkbox' defaultChecked={toggleCreateRefund} onChange={() => setToggleCreateBorrow(e => !e)} /> Create Borrow (Udhari)
+                        </span>}
                     </div>
                     <form onSubmit={handleSubmit(submit)}>
 
-
+                        {/* Editing Refund */}
                         {toggleCreateRefund && <div >
                             <h1 className='text-xl text-center dark:text-white ' >Refund Details</h1>
                             <div className='md:w-[50%] p-3 m-auto  '>
@@ -185,8 +194,23 @@ export default function ExtendBooking() {
                                 <div className={`p-1 grid grid-cols-2 auto-cols-fr gap-0 bg-gray-400 dark:bg-[#111111]`}>
                                     <div>Refund Amount</div>
                                     <div>
-                                        {refundAmountCal && <Input className='input1' type="text"
-                                            {...register("refundAmount", { value: refundAmountCal })} />}
+                                        {afterAdvanceAmount && <Input className='input1' type="text"
+                                            {...register("afterAdvanceAmount", { value: afterAdvanceAmount })} />}
+                                        {errors.refundAmount && <Error message={errors.phone.message} />}
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>}
+                        {/* Editing Borrow */}
+                        {toggleCreateBorrow && <div >
+                            <h1 className='text-xl text-center dark:text-white ' >Refund Details</h1>
+                            <div className='md:w-[50%] p-3 m-auto  '>
+                                <div className={`p-1 grid grid-cols-2 auto-cols-fr gap-0 bg-gray-400 dark:bg-[#111111]`}>
+                                    <div>Refund Amount</div>
+                                    <div>
+                                        {afterAdvanceAmount && <Input className='input1' type="text"
+                                            {...register("afterAdvanceAmount", { value: Math.abs(afterAdvanceAmount) })} />}
                                         {errors.refundAmount && <Error message={errors.phone.message} />}
                                     </div>
                                 </div>

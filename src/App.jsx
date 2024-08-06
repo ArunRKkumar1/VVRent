@@ -23,6 +23,7 @@ import AllBooking from './Components/AllBooking';
 import ExtendBooking from './Components/ExtendBooking';
 import EndBooking from './Components/EndBooking';
 import AllRefund from './Components/AllRefund';
+import AllBorrow from './Components/AllBorrow';
 
 function App() {
   const [darkMode, setDarkMode] = useState(localStorage.getItem('darkMode') === 'true');
@@ -69,6 +70,7 @@ function App() {
               <Route exact path="/manage/user/allUser" element={<AllUsers />} />
               <Route exact path="/manage/user/allUser/userDetails/:userId" element={<UserDetails />} />
               <Route exact path="/manage/refund/allRefund" element={<AllRefund />} />
+              <Route exact path="/manage/borrowers/all" element={<AllBorrow />} />
             </Route>
             <Route exact path="/login" element={<Login />} />
 
