@@ -23,7 +23,7 @@ export default function Login() {
     const onSubmit = handleSubmit(async (data) => {
         setLoader(true);
         try {
-            const response = await axios.post('http://localhost:5000/api/v1/admin/login', data);
+            const response = await axios.post('http://3.110.143.52:8000/api/v1/admin/login', data);
             
             if (response.status === 200) {
              
